@@ -7,8 +7,6 @@ export const ContainerAll = styled.section`
     align-content: center;
     background-color: rgb(228, 232, 241);
     min-height: 100vh;
-    @media only screen and (max-width: 805px){
-    }
 `
 
 export const Container = styled.div`
@@ -54,21 +52,22 @@ export const Button = styled.button`
 `
 
 export const Character = styled.img`
-    width: ${props => props.marioJumps ? '25%' : props.marioFront ? '25%' : props.luigiJumps ? '25%' : props.luigiFront ? '13%' : props.princessJumps || props.princessFront ? '15%' : props.yoshiJumps ? '15%' : '30%'};
+    width: ${props => props.marioJumps ? '20%' : props.marioFront ? '20%' : props.luigiJumps ? '20%' : props.luigiFront ? '10%' : props.princessJumps || props.princessFront ? '11%' : props.yoshiJumps ? '12%' : '25%'};
     position: absolute;
-    top: ${props => props.marioJumps ? '5%' : props.marioFront ? '15%' : props.luigiJumps ? '5%' : props.luigiFront ? '15%' : props.princessJumps ? '0%' : props.princessFront ? '8%' : props.yoshiJumps ? '8%' : '8%'};
-    left: ${props => props.marioJumps || props.marioFront ? '15%' : props.luigiJumps ? '30%' : props.luigiFront ? '35%' : props.princessJumps || props.princessFront ? '49%' : props.yoshiJumps ? '65%' : '54%'};
+    top: ${props => props.marioJumps ? '10%' : props.marioFront ? '20%' : props.luigiJumps ? '5%' : props.luigiFront ? '21%' : props.princessJumps ? '0%' : props.princessFront ? '16%' : props.yoshiJumps ? '8%' : '10%'};
+    left: ${props => props.marioJumps || props.marioFront ? '24%' : props.luigiJumps ? '35%' : props.luigiFront ? '41%' : props.princessJumps || props.princessFront ? '52%' : props.yoshiJumps ? '65%' : '58%'};
     right: 0%;
-    bottom: 0%
-}
+    bottom: 0%;
 `
+
 export const Video = styled.video`
     margin-left: 10%;
     width: 80% !important;
     height: auto !important;
-    }
+    
 `
+
 export const Source = styled.source`
     // width: 10%
-    }
+    
 `
