@@ -23,7 +23,6 @@ export const Button = styled.button`
     
 `
 
-
 export const ContainerButtonFloat = styled.div`
     position: fixed;
     display: flex;
