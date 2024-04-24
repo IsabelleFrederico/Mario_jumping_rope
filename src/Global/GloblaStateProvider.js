@@ -8,6 +8,7 @@ const GlobalStateProvider = (props) => {
     const [currentScreen, setCurrentScreen] = useState("Home")
 
     const renderScreen = (newScreen) => {
+        console.log("entrou")
         setCurrentScreen(newScreen)
     }
 

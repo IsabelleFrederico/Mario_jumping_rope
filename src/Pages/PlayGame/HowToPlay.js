@@ -1,18 +1,14 @@
 import React, { useEffect, useContext } from 'react'
 import GlobalStateContext from '../../Global/GlobalStateContext'
-import BackgroundHome from '../../Components/Background/BackgroundHome'
+import BackgroundHowToPlay from '../../Components/Background/BackgroundHowToPlay'
 import Canvas from '../../Components/Canvas'
 import * as U from '../../Utils/ImagesSrc'
 import * as S from '../Style'
 import './Style.css'
 
-function Home() {
+function HowToPlay() {
     let { request } = useContext(GlobalStateContext)
 
-
-    useEffect(() => {
-
-    }, [])
 
     const buttonPlay = (context) => {
 
@@ -28,11 +24,10 @@ function Home() {
 
     return (
         <S.Container>
-            <BackgroundHome />
+            <BackgroundHowToPlay />
             <Canvas id='buttonPlay' draw={buttonPlay} height="100" onClick={() => { request.renderScreen("Play") }} />
-            <Canvas id='buttonHowToPlay' draw={buttonHowToPlay} height="100" width="600" onClick={() => { request.renderScreen("HowToPlay") }} />
         </S.Container>
     );
 }
 
-export default Home;
+export default HowToPlay;

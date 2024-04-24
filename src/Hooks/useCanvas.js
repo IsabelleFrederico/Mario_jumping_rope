@@ -46,31 +46,23 @@ const useCanvas = draw => {
         context.fillStyle = grdBefore; context.fill()
 
         canvas.onmousemove = function (e) {
-            // important: correct mouse position:
             var rect = this.getBoundingClientRect(),
                 x = e.clientX - rect.left,
                 y = e.clientY - rect.top,
                 i = 0, r;
             console.log(e.clientX, rect)
-            context.clearRect(0, 0, canvas.width, canvas.height); // for demo
+            context.clearRect(0, 0, canvas.width, canvas.height); 
 
             while (r = rects[i++]) {
-                // add a single rect to path:
                 context.beginPath();
                 context.rect(r.x, r.y, r.w, r.h);
 
-                // check if we hover it, fill red, if not fill it blue
-
                 context.fillStyle = context.isPointInPath(x, y) ? grdAfter : grdBefore;
-                context.fillStyle === grdAfter ? canvas.style.cursor = "pointer" : canvas.style.cursor = ""
+                // context.fillStyle === grdAfter ? canvas.style.cursor = "pointer" : canvas.style.cursor = ""
                 context.fill();
             }
 
         };
-
-        // for (let i = 0; i < 10; i++) {
-        //     b.push(new Board(0.05 * i, 0.25, 0.04, 0.03, 0));
-        // }
 
         const renderer = () => {
             count++

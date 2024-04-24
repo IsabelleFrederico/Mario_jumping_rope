@@ -1,0 +1,20 @@
+#buttonPlay {
+    background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(116, 112, 112));
+    position        : relative;
+    margin          : -100% 0% 15% 65%;
+    width           : 25%;
+    cursor          : pointer;
+}
+
+#buttonHowToPlay {
+    position        : relative;
+    margin          : -100% 0% 9% 40%;
+    width           : 50%;
+    cursor          : pointer;
+    background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(116, 112, 112))
+}
+
+#buttonPlay:hover,
+#buttonHowToPlay:hover {
+    background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(0, 0, 0))
+}

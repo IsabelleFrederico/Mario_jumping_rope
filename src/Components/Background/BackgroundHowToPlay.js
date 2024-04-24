@@ -10,7 +10,7 @@ function BackgroundHowToPlay() {
 
     return (
 
-        <Canvas draw={background} width="1000" height="600" style={{ border: '1px solid black' }} />
+        <Canvas draw={background} width="1000" height="600" style={{ border: '1px solid black', width: '80%' }} />
 
     )
 }
