@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title, Container } from '../../Styles/style';
+import { Title, Container } from '../Styles/style';
 
 function Error() {
 

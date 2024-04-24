@@ -36,3 +36,9 @@ export const Input = styled.input`
     margin-bottom: 1em;
     border: 2px solid rgb(220,220,220);
 `
+
+export const Canvas = styled.canvas`
+    margin: -100% 10% 10% 0;
+    width: 80% !important;
+    height: auto !important;
+`
