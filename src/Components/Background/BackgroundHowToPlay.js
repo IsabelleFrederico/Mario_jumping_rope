@@ -1,6 +1,7 @@
 import React from 'react'
 import Canvas from '../../Components/Canvas';
 import * as U from '../../Utils/ImagesSrc';
+import { Opacity } from '@mui/icons-material';
 
 function BackgroundHowToPlay() {
 
@@ -10,7 +11,7 @@ function BackgroundHowToPlay() {
 
     return (
 
-        <Canvas draw={background} width="1000" height="600" style={{ border: '1px solid black', width: '80%' }} />
+        <Canvas draw={background} width="1000" height="600" style={{ marginLeft: '10%', border: '1px solid black', width: '80%' }} />
 
     )
 }

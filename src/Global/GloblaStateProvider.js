@@ -6,14 +6,15 @@ const GlobalStateProvider = (props) => {
     const history = useHistory()
 
     const [currentScreen, setCurrentScreen] = useState("Home")
+    const [phase, setPhase] = useState(1)
+
 
     const renderScreen = (newScreen) => {
-        console.log("entrou")
         setCurrentScreen(newScreen)
     }
 
-    const states = { currentScreen };
-    const setters = { setCurrentScreen };
+    const states = { currentScreen, phase };
+    const setters = { setCurrentScreen, setPhase };
     const requests = { renderScreen };
 
     const data = { states, setters, requests };

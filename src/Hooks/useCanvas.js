@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { ropeRef } from '../Utils/ImagesSrc'
 
 const useCanvas = draw => {
 
@@ -10,14 +11,16 @@ const useCanvas = draw => {
 
         const canvas = ref.current
         const context = canvas.getContext('2d')
-        let count = 0
-        let animationId
         let mario = false
         let angle = 0
-        let rects = [
-            { x: 660, y: 360, w: 350, h: 110 },
-            { x: 340, y: 480, w: 660, h: 110 }
-        ], i = 0, r;
+        let DEG2RAD = Math.PI / 180
+        let animationId = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame;
+        let t = Date.now();
+        let dt;
 
         const keyPush = (e) => {
             clearTimeout(timeOut.current)
@@ -33,44 +36,13 @@ const useCanvas = draw => {
             };
         }
 
-        const grdBefore = context.createLinearGradient(1200, 80, 50, 100);
-        grdBefore.addColorStop(0, 'rgba(60, 60, 60, 0.5)');
-        grdBefore.addColorStop(1, 'rgba(240, 240, 240)');
-
-        const grdAfter = context.createLinearGradient(100, 80, 50, 100);
-        grdAfter.addColorStop(0, 'rgba(60, 60, 60, 0.5)');
-        grdAfter.addColorStop(1, 'rgba(240, 240, 240)');
-
-
-        while (r = rects[i++]) context.rect(r.x, r.y, r.w, r.h);
-        context.fillStyle = grdBefore; context.fill()
-
-        canvas.onmousemove = function (e) {
-            var rect = this.getBoundingClientRect(),
-                x = e.clientX - rect.left,
-                y = e.clientY - rect.top,
-                i = 0, r;
-            console.log(e.clientX, rect)
-            context.clearRect(0, 0, canvas.width, canvas.height); 
-
-            while (r = rects[i++]) {
-                context.beginPath();
-                context.rect(r.x, r.y, r.w, r.h);
-
-                context.fillStyle = context.isPointInPath(x, y) ? grdAfter : grdBefore;
-                // context.fillStyle === grdAfter ? canvas.style.cursor = "pointer" : canvas.style.cursor = ""
-                context.fill();
-            }
-
-        };
-
-        const renderer = () => {
-            count++
-            draw(context, count, mario, angle)
+        const renderer = (timestamp) => {
+            dt = timestamp - t
+            draw(context, angle, DEG2RAD, t, dt, mario)
             animationId = window.requestAnimationFrame(renderer)
             window.addEventListener('keydown', keyPush);
         }
-        renderer()
+        renderer(t)
 
         return () => {
             window.cancelAnimationFrame(animationId)

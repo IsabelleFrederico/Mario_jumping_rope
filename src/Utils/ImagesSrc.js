@@ -7,25 +7,18 @@ import princessPeachJumps from '../img/PrincessPeach_jumps.webp'
 import yoshiFront from '../img/YoshiFront.png'
 import yoshiJumps from '../img/YoshiJumps.webp'
 import rope from '../img/rope.png'
-import backgroundImg from '../img/backgroundImage.png'
+import backgroundPlay from '../img/backgroundImage.png'
 import backgroundHome from '../img/backgroundHome.png'
 import background from '../img/background.png'
-import buttons from '../img/button.png'
 import howToPlayButton from '../img/howtoplay.png'
 import playButton from '../img/play.png'
 
-
-export const ropeRef = new Image()
-ropeRef.src = rope
 
 export const backgroundHomeRef = new Image()
 backgroundHomeRef.src = backgroundHome
 
 export const backgroundHowToPlayRef = new Image()
-backgroundHowToPlayRef.src = backgroundImg
-
-export const buttonsRef = new Image()
-buttonsRef.src = buttons
+backgroundHowToPlayRef.src = background
 
 export const howToPlayButtonRef = new Image()
 howToPlayButtonRef.src = howToPlayButton
@@ -34,7 +27,10 @@ export const playButtonRef = new Image()
 playButtonRef.src = playButton
 
 export const backgroundRef = new Image()
-backgroundRef.src = background
+backgroundRef.src = backgroundPlay
+
+export const ropeRef = new Image()
+ropeRef.src = rope
 
 export const marioFrontRef = new Image()
 marioFrontRef.src = marioFront

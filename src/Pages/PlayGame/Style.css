@@ -1,0 +1,30 @@
+#backgroundTextBox {
+    position     : relative;
+    margin       : -100% 0% 10% 15%;
+    width        : 70%;
+    border-radius: 15px;
+    background   : rgba(156, 152, 152, 0.8)
+}
+
+#title {
+    position: relative;
+    margin  : -100% 0% 44% 25%;
+    width   : 50%;
+}
+
+#text {
+    position: relative;
+    margin  : -100% 0% 18% 20%;
+    width   : 60%;
+}
+
+#play {
+    position           : relative;
+    margin             : -100% 0% 18% 36%;
+    width              : 25%;
+    cursor             : pointer;
+}
+
+#play:hover {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.34712643678160915) 32%, rgba(255, 255, 255, 0) 73%);
+}

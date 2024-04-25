@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import * as S from './Style'
-import BackgroundPlayGame from "../Components/Background/BackgroundPlayGame";
-import BackgroundHome from "../Components/Background/BackgroundHome"
 import Home from "../Pages/Home/Home";
+import Game from "../Pages/PlayGame/Game"
+import HowToPlay from "../Pages/PlayGame/HowToPlay";
 import GlobalStateContext from '../Global/GlobalStateContext'
 
 function Router() {
@@ -13,22 +13,12 @@ function Router() {
 
             case "Home":
                 return <Home />
-            // case "Home":
-            //     return (
-            //         <S.Container>
-            //             <BackgroundPlayGame />
-            //             <MarioGame />
-            //         </S.Container>
-            //     )
-            // case "Home":
-            //     return (
-            //         <S.Container>
-            //             <BackgroundPlayGame />
-            //             <MarioGame />
-            //         </S.Container>
-            //     )
+            case "Play":
+                return <Game />
+            case "HowToPlay":
+                return <HowToPlay />
             default:
-                break
+                return <Home />
         }
     }
 

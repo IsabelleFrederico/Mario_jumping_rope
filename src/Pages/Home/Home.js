@@ -7,7 +7,7 @@ import * as S from '../Style'
 import './Style.css'
 
 function Home() {
-    let { request } = useContext(GlobalStateContext)
+    let { requests } = useContext(GlobalStateContext)
 
 
     useEffect(() => {
@@ -29,8 +29,8 @@ function Home() {
     return (
         <S.Container>
             <BackgroundHome />
-            <Canvas id='buttonPlay' draw={buttonPlay} height="100" onClick={() => { request.renderScreen("Play") }} />
-            <Canvas id='buttonHowToPlay' draw={buttonHowToPlay} height="100" width="600" onClick={() => { request.renderScreen("HowToPlay") }} />
+            <Canvas id='buttonPlay' draw={buttonPlay} height="100" onClick={() => { requests.renderScreen("Play") }} />
+            <Canvas id='buttonHowToPlay' draw={buttonHowToPlay} height="100" width="600" onClick={() => { requests.renderScreen("HowToPlay") }} />
         </S.Container>
     );
 }
