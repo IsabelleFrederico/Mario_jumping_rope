@@ -12,3 +12,5 @@ Jogo original: https://yombie.com/game/pucca-jumping-rope
 cogumelo vermelho https://www.marketingegames.com.br/toads-dos-jogos-mario-nao-sao-cogumelos/
 
 cogumelo amarelo https://br.pinterest.com/pin/620441286148173430/
+
+favicon https://www.uplabs.com/posts/super-mario-icon
