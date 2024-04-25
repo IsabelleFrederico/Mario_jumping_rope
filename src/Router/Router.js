@@ -3,6 +3,10 @@ import * as S from './Style'
 import Home from "../Pages/Home/Home";
 import Game from "../Pages/PlayGame/Game"
 import HowToPlay from "../Pages/PlayGame/HowToPlay";
+import PhaseOne from "../Components/Phases/PhaseOne";
+import PhaseTwo from "../Components/Phases/PhaseTwo";
+import PhaseThree from "../Components/Phases/PhaseThree";
+import PhaseFour from "../Components/Phases/PhaseFour"
 import GlobalStateContext from '../Global/GlobalStateContext'
 
 function Router() {
@@ -14,7 +18,13 @@ function Router() {
             case "Home":
                 return <Home />
             case "Play":
-                return <Game />
+                return <PhaseOne />
+            case "PhaseTwo":
+                return <PhaseTwo />
+            case "PhaseThree":
+                return <PhaseThree />
+            case "PhaseFour":
+                return <PhaseFour />
             case "HowToPlay":
                 return <HowToPlay />
             default:

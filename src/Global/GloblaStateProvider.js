@@ -4,10 +4,12 @@ import GlobalStateContext from "../Global/GlobalStateContext";
 
 const GlobalStateProvider = (props) => {
     const history = useHistory()
-
     const [currentScreen, setCurrentScreen] = useState("Home")
     const [phase, setPhase] = useState(1)
 
+    useEffect(() => {
+
+    }, [phase])
 
     const renderScreen = (newScreen) => {
         setCurrentScreen(newScreen)

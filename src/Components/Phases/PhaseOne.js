@@ -1,19 +1,19 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import Canvas from '../Canvas';
 import * as U from '../../Utils/ImagesSrc';
 import "./Style.css"
+import GlobalStateContext from '../../Global/GlobalStateContext';
 import useCanvas from '../../Hooks/useCanvas';
 import * as S from '../style'
 
-function PhaseOne(props) {
+function PhaseOne() {
     const ropeRef = useRef(null)
     ropeRef.current = "../../img/background.mp4"
+    let { requests } = useContext(GlobalStateContext)
 
-
-    const mario = (context, angle, DEG2RAD, t, dt, mario) => {
+    const mario = (context, angle, DEG2RAD, t, dt, mario, luigi, princess, yoshi, phase) => {
         const height = context.canvas.height;
         const width = context.canvas.width;
-
         // BackGround
         context.drawImage(U.backgroundRef, 0, 0, context.canvas.width, context.canvas.height)
         // BackGround End
@@ -33,24 +33,24 @@ function PhaseOne(props) {
         // Rope
         // ropeRef.current = ref.current = "../../img/background.mp4"
 
-        const rope = {
-            image: U.ropeRef,
-            video: ropeRef.current,
-            x: 0,
-            y: 0,
-            w: 1000,
-            h: 3000
-        }
+        // const rope = {
+        //     image: U.ropeRef,
+        //     video: ropeRef.current,
+        //     x: 0,
+        //     y: 0,
+        //     w: 1000,
+        //     h: 3000
+        // }
 
-        // context.drawImage(rope.image, rope.x, rope.y, rope.w, rope.h)
-        context.drawImage(rope.image, rope.x, rope.y, rope.w, rope.h);
+        // // context.drawImage(rope.image, rope.x, rope.y, rope.w, rope.h)
+        // context.drawImage(rope.image, rope.x, rope.y, rope.w, rope.h);
 
-        context.save();
-        context.translate(width / 2, height / 2); // move cursor to canvas center
-        context.rotate(DEG2RAD * angle); // rotate canvas
-        context.drawImage(rope.image, -rope.w / 2, -rope.h / 2); // draw img center at cursor center
-        angle += dt / 16.67 * 6; // increment angle ~ 360 deg/sec
-        context.restore();
+        // context.save();
+        // context.translate(width / 2, height / 2); // move cursor to canvas center
+        // context.rotate(DEG2RAD * angle); // rotate canvas
+        // context.drawImage(rope.image, -rope.w / 2, -rope.h / 2); // draw img center at cursor center
+        // angle += dt / 16.67 * 6; // increment angle ~ 360 deg/sec
+        // context.restore();
 
         // Rope End
 
@@ -60,6 +60,9 @@ function PhaseOne(props) {
     return (
         <>
             <Canvas id="phaseOne" draw={mario} height="600" width="1000" />
+            <button onClick={() => { requests.renderScreen("PhaseTwo") }}> proxima fase aqui</button >
+
+
         </>
     )
 }
