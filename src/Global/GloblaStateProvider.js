@@ -6,6 +6,8 @@ const GlobalStateProvider = (props) => {
     const history = useHistory()
     const [currentScreen, setCurrentScreen] = useState("Home")
     const [phase, setPhase] = useState(1)
+    const [failure, setFailure] = useState(false)
+
 
     useEffect(() => {
 
@@ -15,8 +17,8 @@ const GlobalStateProvider = (props) => {
         setCurrentScreen(newScreen)
     }
 
-    const states = { currentScreen, phase };
-    const setters = { setCurrentScreen, setPhase };
+    const states = { currentScreen, phase, failure };
+    const setters = { setCurrentScreen, setPhase, setFailure };
     const requests = { renderScreen };
 
     const data = { states, setters, requests };

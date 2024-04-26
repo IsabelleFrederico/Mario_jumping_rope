@@ -2,11 +2,11 @@ import React, { useEffect, useContext, useState } from 'react'
 import GlobalStateContext from '../../Global/GlobalStateContext'
 import Canvas from '../../Components/Canvas'
 import * as S from '../Style'
-import PhaseOne from '../../Components/Phases/PhaseOne'
-import PhaseTwo from '../../Components/Phases/PhaseOne'
-import PhaseThree from '../../Components/Phases/PhaseOne'
-import PhaseFour from '../../Components/Phases/PhaseOne'
-import './Style.css'
+import PhaseOne from './Phases/PhaseOne'
+import PhaseTwo from './Phases/PhaseOne'
+import PhaseThree from './Phases/PhaseOne'
+import PhaseFour from './Phases/PhaseOne'
+// import './Style.css'
 
 function Game() {
     let { states, setters, requests } = useContext(GlobalStateContext)

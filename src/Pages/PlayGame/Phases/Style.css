@@ -1,0 +1,12 @@
+#phaseOne {
+    width: 80% !important;
+    margin-left: 10%;
+}
+
+#backgroundTextBox {
+    position: absolute;
+    margin       : -20% -75% 5% 0%;
+    width: 12%;
+    border-radius: 10px;
+    background: rgba(156, 152, 152, 0.8);
+}
