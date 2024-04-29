@@ -16,7 +16,7 @@ import luigiFalls from '../img/LuigiFalling.png'
 import princessPeachFalls from '../img/PrincessPeach_falling.png'
 import yoshiFalls from '../img/YoshiFalls.png'
 import coin from '../img/coin.png'
-import failure from '../img/coin.png'
+import failure from '../img/failure.png'
 import youWon from '../img/youWon.png'
 import level from '../img/levelClear.png'
 

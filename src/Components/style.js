@@ -1,15 +1,7 @@
 import styled from 'styled-components'
 
 export const Canvas = styled.canvas`
-    /* width: 80% !important; */
     height: auto !important;    
+    border: 1px solid black;
+    /* width: 100%; */
 `
-// export const Video = styled.video`
-//     margin-left: 10%;
-//     width: 80% !important;
-//     height: auto !important;    
-// `
-
-export const Source = styled.source`
-    // width: 10%
-    `

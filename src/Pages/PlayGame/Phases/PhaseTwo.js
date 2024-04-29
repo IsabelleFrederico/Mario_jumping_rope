@@ -1,7 +1,6 @@
 import React, { useRef, useState, useContext } from 'react'
 import Canvas from '../../../Components/Canvas';
 import * as U from '../../../Utils/ImagesSrc';
-import "./Style.css"
 import useCanvas from '../../../Hooks/useCanvas';
 import * as S from '../../../Components/style'
 import GlobalStateContext from '../../../Global/GlobalStateContext';

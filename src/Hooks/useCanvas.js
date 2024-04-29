@@ -18,12 +18,18 @@ const useCanvas = draw => {
         let yoshi = false
         let frames = 0
         let currentFrame = 0
+        let framesControl = 0
+        let framesControlCompar = 0
         let loops = 0
         let nextJump = 0
         let checkNextJump = 0
         let animationId
         let won = true
         let attempts = 5
+        let mouseX
+        let mouseY
+        let offsetX
+        let offsetY
 
         const keyPush = (e) => {
             clearTimeout(timeOut.current)
@@ -55,6 +61,20 @@ const useCanvas = draw => {
                 default:
                     return false
             };
+        }
+
+        const reOffset = () => {
+            var BB = canvas.getBoundingClientRect();
+            offsetX = BB.left;
+            offsetY = BB.top;
+        }
+
+        const handleMouseMove = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
         }
 
         const updateCurrentFrame = () => {
@@ -136,8 +156,9 @@ const useCanvas = draw => {
                 }
             }
             if (currentFrame > 16 && nextJump !== checkNextJump) {
-                
+                clearTimeout(timeOut.current)
                 return won = false
+
             }
         }
 
@@ -145,11 +166,15 @@ const useCanvas = draw => {
 
         const renderer = () => {
             won ? frames++ : frames = currentFrame
+            framesControl++
+            framesControlCompar = currentFrame + 50
             updateCurrentFrame()
             checkJumps()
-            draw(context, currentFrame, loops, won, mario, luigi, princess, yoshi)
+            reOffset()
+            draw(context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, won, framesControl, framesControlCompar, mario, luigi, princess, yoshi)
             animationId = window.requestAnimationFrame(renderer)
             window.addEventListener('keydown', keyPush);
+            window.addEventListener('mousemove', handleMouseMove);
         }
         renderer()
 
