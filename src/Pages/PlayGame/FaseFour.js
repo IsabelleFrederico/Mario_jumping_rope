@@ -70,7 +70,6 @@ function HomePageUnit() {
             ],
         }
         const { ropeX, ropeY } = ropePlay.move
-        // console.log(ropeX)
         angle += 40
         // context.translate(ropePlay.x/2, ropePlay.y/2);
         // context.rotate(angle * Math.PI / 180)

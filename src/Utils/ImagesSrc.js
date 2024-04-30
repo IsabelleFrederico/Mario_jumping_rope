@@ -19,6 +19,7 @@ import coin from '../img/coin.png'
 import failure from '../img/failure.png'
 import youWon from '../img/youWon.png'
 import level from '../img/levelClear.png'
+import gameOver from '../img/gameOver.png'
 
 
 export const backgroundHomeRef = new Image()
@@ -47,6 +48,9 @@ youWonRef.src = youWon
 
 export const levelClearRef = new Image()
 levelClearRef.src = level
+
+export const gameOverRef = new Image()
+gameOverRef.src = gameOver
 
 export const marioFrontRef = new Image()
 marioFrontRef.src = marioFront

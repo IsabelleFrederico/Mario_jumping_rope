@@ -5,7 +5,7 @@ import * as U from '../../Utils/ImagesSrc'
 import * as S from '../Style'
 
 function HowToPlay() {
-    let { requests } = useContext(GlobalStateContext)
+    let { states, requests } = useContext(GlobalStateContext)
 
     const draw = (context, mouseX, mouseY, offsetX, offsetY) => {
         const height = context.canvas.height;
@@ -16,8 +16,6 @@ function HowToPlay() {
         // Backgroung End
 
         // Text Box
-        let cursors = ['default', 'pointer'];
-
         const box = [{
             name: 'box',
             x: width - 530,
@@ -101,9 +99,9 @@ function HowToPlay() {
         }
 
         if (newCursor === undefined || newCursor === 0) {
-            context.canvas.style.cursor = cursors[0];
+            context.canvas.style.cursor = states.cursors[0];
         } else if (newCursor === 1) {
-            context.canvas.style.cursor = cursors[1];
+            context.canvas.style.cursor = states.cursors[1];
             context.drawImage(U.playButtonRef, button.x, button.y, button.w + 5, button.h + 5)
 
         }
@@ -113,6 +111,7 @@ function HowToPlay() {
         context.canvas.addEventListener('click', function (e) {
             let x = e.pageX - offsetX
             let y = e.pageY - offsetY
+
             if (y > button.x && y < button.x + button.h
                 && x > button.y && x < button.y + button.w) {
                 requests.renderScreen("Play")

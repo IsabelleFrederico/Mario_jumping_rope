@@ -5,7 +5,7 @@ import * as U from '../../Utils/ImagesSrc'
 import * as S from '../Style'
 
 function Home() {
-    let { requests } = useContext(GlobalStateContext)
+    let { states, requests } = useContext(GlobalStateContext)
 
 
     useEffect(() => {
@@ -21,8 +21,6 @@ function Home() {
         // Background End
 
         // Butons
-        let cursors = ['default', 'pointer'];
-
         const grad = context.createLinearGradient(0, 0, 1400, 100)
         grad.addColorStop(0, "rgba(0, 0, 10, 0.05)")
         grad.addColorStop(1, "rgba(0, 0, 0, 1)")
@@ -79,8 +77,7 @@ function Home() {
                 }
                 if (y > b.x && y < b.x + b.h - 340
                     && x > b.y + 38 && x < b.y + 38 + b.w) {
-                    console.log(b.name)
-                    requests.renderScreen("Play")
+                    requests.renderScreen("PhaseTwo")
                 }
 
             });
@@ -99,9 +96,9 @@ function Home() {
         }
 
         if (newCursor === undefined) {
-            context.canvas.style.cursor = cursors[0];
+            context.canvas.style.cursor = states.cursors[0];
         } else if (newCursor === 1) {
-            context.canvas.style.cursor = cursors[1];
+            context.canvas.style.cursor = states.cursors[1];
         }
 
         const play = buttons[0]

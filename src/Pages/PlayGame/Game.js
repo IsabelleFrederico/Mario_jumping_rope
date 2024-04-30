@@ -14,10 +14,7 @@ function Game() {
 
 
     useEffect(() => {
-        if (aqui === true) {
-            phases(states.phase)
-            setAqui(false)
-        }
+
     }, [])
 
     const phases = (phase) => {
@@ -26,7 +23,6 @@ function Game() {
             // case 1: // Mario 
             //     return <PhaseOne />
             case 2: // Mario Luigi
-                console.log('aqui oh')
                 return <PhaseTwo />
             case 3: // Mario Luigi Princess
                 return <PhaseThree />
@@ -37,15 +33,9 @@ function Game() {
         };
     }
 
-    const nextfase = () => {
-        setAqui(true)
-        setters.setPhase(states.phase + 1)
-    }
-
     return (
         <S.Container>
             {phases()}
-            <button onClick={() => nextfase()}> proxima fase aqui</button>
         </S.Container>
     );
 }

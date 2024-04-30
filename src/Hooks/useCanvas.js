@@ -25,7 +25,7 @@ const useCanvas = draw => {
         let checkNextJump = 0
         let animationId
         let won = true
-        let attempts = 5
+        let attempts = 0
         let mouseX
         let mouseY
         let offsetX
@@ -105,19 +105,20 @@ const useCanvas = draw => {
                     }
 
                 case 'PhaseTwo':
-                    if (loops < 16) {
+                    if (loops < 20) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
-                            // const loop = rope.movements.length;
                             currentFrame = movement % 23;
+                            if (currentFrame === 22) { loops++ }
+                            // if (currentFrame === 14 ) { nextJump++ }
                         }
                         return (currentFrame)
                     } else {
                         return <>Proxima fase</>
                     }
                 case 'PhaseThree':
-                    if (loops < 16) {
+                    if (loops < 25) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
@@ -129,7 +130,7 @@ const useCanvas = draw => {
                         return <>Proxima fase</>
                     }
                 case 'PhaseFour':
-                    if (loops < 16) {
+                    if (loops < 30) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
@@ -162,7 +163,35 @@ const useCanvas = draw => {
             }
         }
 
+        const tryAgainButton = () => {
+            if (!won) {
+                attempts++
+                won = true
+                currentFrame = 0
+                frames = 0
+                framesControl = 0
+                framesControlCompar = 0
+                loops = 0
+                nextJump = 0
+                checkNextJump = 0
+            }
+        }
 
+        const playAgainButton = () => {
+            attempts = 0
+            currentFrame = 0
+            won = true
+            mario = false
+            luigi = false
+            princess = false
+            yoshi = false
+            frames = 0
+            framesControl = 0
+            framesControlCompar = 0
+            loops = 0
+            nextJump = 0
+            checkNextJump = 0
+        }
 
         const renderer = () => {
             won ? frames++ : frames = currentFrame
@@ -171,9 +200,9 @@ const useCanvas = draw => {
             updateCurrentFrame()
             checkJumps()
             reOffset()
-            draw(context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, won, framesControl, framesControlCompar, mario, luigi, princess, yoshi)
-            animationId = window.requestAnimationFrame(renderer)
+            draw(context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, won, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, luigi, princess, yoshi)
             window.addEventListener('keydown', keyPush);
+            animationId = window.requestAnimationFrame(renderer)
             window.addEventListener('mousemove', handleMouseMove);
         }
         renderer()
