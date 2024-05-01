@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Canvas from '../../../Components/Canvas';
 import * as U from '../../../Utils/ImagesSrc';
 import * as M from '../../../Utils/Rope';
@@ -8,11 +8,10 @@ import GlobalStateContext from '../../../Global/GlobalStateContext';
 function PhaseTwo() {
     let { states, requests } = useContext(GlobalStateContext)
 
-    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, won, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, luigi, princess, yoshi) => {
+    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won, luigi, wonLuigi) => {
         const height = context.canvas.height; // 400
         const width = context.canvas.width; // 600
         let attemptsTotal = 5
-
         // BackGround
         context.drawImage(U.backgroundRef, 0, 0, context.canvas.width, context.canvas.height)
         // BackGround End
@@ -37,11 +36,11 @@ function PhaseTwo() {
 
         // Mario 600 400
         const marioPlay = {
-            image: won && currentFrame === 14 ? (mario ? U.marioJumpsRef : U.marioFrontRef) : U.marioFallsRef,
-            x: won && currentFrame === 14 ? (mario ? width - 435 : width - 450) : width - 430,
-            y: won && currentFrame === 14 ? (mario ? height - 350 : height - 295) : height - 275,
-            w: won && currentFrame === 14 ? (mario ? width - 410 : width - 420) : width - 489,
-            h: won && currentFrame === 14 ? (mario ? height - 190 : height - 220) : height - 280
+            image: won ? (mario ? U.marioJumpsRef : U.marioFrontRef) : U.marioFallsRef,
+            x: won ? (mario ? width - 435 : width - 450) : width - 430,
+            y: won ? (mario ? height - 350 : height - 295) : height - 275,
+            w: won ? (mario ? width - 410 : width - 420) : width - 489,
+            h: won ? (mario ? height - 190 : height - 220) : height - 280
         }
 
         context.drawImage(marioPlay.image, marioPlay.x, marioPlay.y, marioPlay.w, marioPlay.h)
@@ -49,11 +48,11 @@ function PhaseTwo() {
 
         // Luigi
         const luigiPlay = {
-            image: won && currentFrame === 14 ? (luigi ? U.luigiJumpsRef : U.luigiFrontRef) : U.luigiFallsRef,
-            x: won && currentFrame === 14 ? (luigi ? width - 370 : width - 300) : width - 350,
-            y: won && currentFrame === 14 ? (luigi ? height - 330 : height - 295) : height - 300,
-            w: won && currentFrame === 14 ? (luigi ? width - 390 : width - 490) : width - 460,
-            h: won && currentFrame === 14 ? (luigi ? height - 200 : height - 235) : height - 220
+            image: wonLuigi ? (luigi ? U.luigiJumpsRef : U.luigiFrontRef) : U.luigiFallsRef,
+            x: wonLuigi ? (luigi ? width - 370 : width - 300) : width - 320,
+            y: wonLuigi ? (luigi ? height - 330 : height - 295) : height - 300,
+            w: wonLuigi ? (luigi ? width - 390 : width - 490) : width - 460,
+            h: wonLuigi ? (luigi ? height - 200 : height - 235) : height - 220
         }
 
         context.drawImage(luigiPlay.image, luigiPlay.x, luigiPlay.y, luigiPlay.w, luigiPlay.h)
@@ -94,7 +93,6 @@ function PhaseTwo() {
         }
 
         context.drawImage(rope.movements[currentFrame], rope.x, rope.y, rope.w, rope.h);
-
         // Rope End
 
         // Coins 
@@ -110,183 +108,182 @@ function PhaseTwo() {
         // Coins End
 
         // Try Again
-        // if (!won && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
-        //     context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-        //     // Failure text
-        //     const failure = {
-        //         image: U.failureRef,
-        //         x: width - 430,
-        //         y: height - 320,
-        //         w: width - 100,
-        //         h: height - 60
-        //     }
+        if ((!won || !wonLuigi) && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
 
-        //     context.drawImage(failure.image, failure.x, failure.y, failure.w, failure.h)
+            context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
+            // Failure text
+            const failure = {
+                image: U.failureRef,
+                x: width - 430,
+                y: height - 320,
+                w: width - 100,
+                h: height - 60
+            }
 
-        //     //Try again Style
-        //     const tryAgain = {
-        //         x: width - 200,
-        //         y: height - 200,
-        //         w: width - 780,
-        //         h: height - 340,
-        //         cursor: 1
-        //     }
+            context.drawImage(failure.image, failure.x, failure.y, failure.w, failure.h)
 
-        //     context.lineWidth = 4;
-        //     context.strokeStyle = '#000000';
-        //     context.fillStyle = 'rgba(225,225,225,0.8)';
-        //     context.beginPath();
-        //     context.roundRect(tryAgain.x, tryAgain.y, tryAgain.w, tryAgain.h, 20)
-        //     context.stroke();
-        //     context.fill();
-        //     context.moveTo(mouseX, mouseY)
-        //     context.closePath();
+            //Try again Style
+            const tryAgain = {
+                x: width - 200,
+                y: height - 200,
+                w: width - 780,
+                h: height - 340,
+                cursor: 1
+            }
 
-
-        //     context.font = '27pt Kremlin Pro Web';
-        //     context.fillStyle = '#000000';
-        //     context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
+            context.lineWidth = 4;
+            context.strokeStyle = '#000000';
+            context.fillStyle = 'rgba(225,225,225,0.8)';
+            context.beginPath();
+            context.roundRect(tryAgain.x, tryAgain.y, tryAgain.w, tryAgain.h, 20)
+            context.stroke();
+            context.fill();
+            context.moveTo(mouseX, mouseY)
+            context.closePath();
 
 
-        //     // Try again action
-        //     let newCursor
-
-        //     if (context.isPointInPath(mouseX, mouseY)) {
-        //         context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
-        //         newCursor = tryAgain.cursor;
-        //     }
-
-        //     if (newCursor === undefined || newCursor === 0) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //     } else if (newCursor === 1) {
-        //         context.canvas.style.cursor = states.cursors[1];
-        //     }
-
-        //     context.canvas.addEventListener('click', function (e) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //         tryAgainButton()
-
-        //     }, false);
-        //     // Try Again End
-        // } else if (!won && (attemptsTotal - attempts) <= 0) {
-        //     // Game Over
-        //     context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-        //     // Game Over text
-        //     const gameOver = {
-        //         image: U.gameOverRef,
-        //         x: width - 530,
-        //         y: height - 330,
-        //         w: width - 100,
-        //         h: height - 60
-        //     }
-
-        //     context.drawImage(gameOver.image, gameOver.x, gameOver.y, gameOver.w, gameOver.h)
-
-        //     //Try again Style
-        //     const again = {
-        //         x: width - 200,
-        //         y: height - 200,
-        //         w: width - 790,
-        //         h: height - 340,
-        //         cursor: 1
-        //     }
-
-        //     context.lineWidth = 4;
-        //     context.strokeStyle = '#000000';
-        //     context.fillStyle = 'rgba(225,225,225,0.8)';
-        //     context.beginPath();
-        //     context.roundRect(again.x, again.y, again.w, again.h, 20)
-        //     context.stroke();
-        //     context.fill();
-        //     context.moveTo(mouseX, mouseY)
-        //     context.closePath();
+            context.font = '27pt Kremlin Pro Web';
+            context.fillStyle = '#000000';
+            context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
 
 
-        //     context.font = '27pt Kremlin Pro Web';
-        //     context.fillStyle = '#000000';
-        //     context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
+            // Try again action
+            let newCursor
+
+            if (context.isPointInPath(mouseX, mouseY)) {
+                context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
+                newCursor = tryAgain.cursor;
+            }
+
+            if (newCursor === undefined || newCursor === 0) {
+                context.canvas.style.cursor = states.cursors[0];
+            } else if (newCursor === 1) {
+                context.canvas.style.cursor = states.cursors[1];
+            }
+
+            context.canvas.addEventListener('click', function (e) {
+                context.canvas.style.cursor = states.cursors[0];
+                tryAgainButton()
+
+            }, false);
+            // Try Again End
+        } else if ((!won || !wonLuigi) && (attemptsTotal - attempts) <= 0) {
+            // Game Over
+            context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
+            // Game Over text
+            const gameOver = {
+                image: U.gameOverRef,
+                x: width - 530,
+                y: height - 330,
+                w: width - 100,
+                h: height - 60
+            }
+
+            context.drawImage(gameOver.image, gameOver.x, gameOver.y, gameOver.w, gameOver.h)
+
+            //Try again Style
+            const again = {
+                x: width - 200,
+                y: height - 200,
+                w: width - 790,
+                h: height - 340,
+                cursor: 1
+            }
+
+            context.lineWidth = 4;
+            context.strokeStyle = '#000000';
+            context.fillStyle = 'rgba(225,225,225,0.8)';
+            context.beginPath();
+            context.roundRect(again.x, again.y, again.w, again.h, 20)
+            context.stroke();
+            context.fill();
+            context.moveTo(mouseX, mouseY)
+            context.closePath();
 
 
-        //     // Try again action
-        //     let newCursor
-
-        //     if (context.isPointInPath(mouseX, mouseY)) {
-        //         context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
-        //         newCursor = again.cursor;
-        //     }
-
-        //     if (newCursor === undefined || newCursor === 0) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //     } else if (newCursor === 1) {
-        //         context.canvas.style.cursor = states.cursors[1];
-        //     }
-
-        //     context.canvas.addEventListener('click', function (e) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //         playAgainButton()
-
-        //     }, false);
-
-        // } else if (won && framesControl > framesControlCompar && jumps === 0) {
-        //     //Next Phase
-        //     context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-        //     // Failure text
-        //     const levelClear = {
-        //         image: U.levelClearRef,
-        //         x: width - 510,
-        //         y: height - 320,
-        //         w: width - 100,
-        //         h: height - 60
-        //     }
-
-        //     context.drawImage(levelClear.image, levelClear.x, levelClear.y, levelClear.w, levelClear.h)
-
-        //     //Try again Style
-        //     const again = {
-        //         x: width - 200,
-        //         y: height - 200,
-        //         w: width - 792,
-        //         h: height - 340,
-        //         cursor: 1
-        //     }
-
-        //     context.lineWidth = 4;
-        //     context.strokeStyle = '#000000';
-        //     context.fillStyle = 'rgba(225,225,225,0.8)';
-        //     context.beginPath();
-        //     context.roundRect(again.x, again.y, again.w, again.h, 20)
-        //     context.stroke();
-        //     context.fill();
-        //     context.moveTo(mouseX, mouseY)
-        //     context.closePath();
+            context.font = '27pt Kremlin Pro Web';
+            context.fillStyle = '#000000';
+            context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
 
 
-        //     context.font = '27pt Kremlin Pro Web';
-        //     context.fillStyle = '#000000';
-        //     context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
+            // Try again action
+            let newCursor
+
+            if (context.isPointInPath(mouseX, mouseY)) {
+                context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
+                newCursor = again.cursor;
+            }
+
+            if (newCursor === undefined || newCursor === 0) {
+                context.canvas.style.cursor = states.cursors[0];
+            } else if (newCursor === 1) {
+                context.canvas.style.cursor = states.cursors[1];
+            }
+
+            context.canvas.addEventListener('click', function (e) {
+                context.canvas.style.cursor = states.cursors[0];
+                playAgainButton()
+
+            }, false);
+
+        } else if ((won || wonLuigi) && framesControl > framesControlCompar && jumps === 0) {
+            //Next Phase
+            context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
+            // Failure text
+            const levelClear = {
+                image: U.levelClearRef,
+                x: width - 510,
+                y: height - 320,
+                w: width - 100,
+                h: height - 60
+            }
+
+            context.drawImage(levelClear.image, levelClear.x, levelClear.y, levelClear.w, levelClear.h)
+
+            //Try again Style
+            const again = {
+                x: width - 200,
+                y: height - 200,
+                w: width - 792,
+                h: height - 340,
+                cursor: 1
+            }
+
+            context.lineWidth = 4;
+            context.strokeStyle = '#000000';
+            context.fillStyle = 'rgba(225,225,225,0.8)';
+            context.beginPath();
+            context.roundRect(again.x, again.y, again.w, again.h, 20)
+            context.stroke();
+            context.fill();
+            context.moveTo(mouseX, mouseY)
+            context.closePath();
 
 
-        //     // Try again action
-        //     let newCursor
+            context.font = '27pt Kremlin Pro Web';
+            context.fillStyle = '#000000';
+            context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
 
-        //     if (context.isPointInPath(mouseX, mouseY)) {
-        //         context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
-        //         newCursor = again.cursor;
-        //     }
+            let newCursor
 
-        //     if (newCursor === undefined || newCursor === 0) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //     } else if (newCursor === 1) {
-        //         context.canvas.style.cursor = states.cursors[1];
-        //     }
+            if (context.isPointInPath(mouseX, mouseY)) {
+                context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
+                newCursor = again.cursor;
+            }
 
-        //     context.canvas.addEventListener('click', function (e) {
-        //         context.canvas.style.cursor = states.cursors[0];
-        //         requests.renderScreen("PhaseTwo")
+            if (newCursor === undefined || newCursor === 0) {
+                context.canvas.style.cursor = states.cursors[0];
+            } else if (newCursor === 1) {
+                context.canvas.style.cursor = states.cursors[1];
+            }
 
-        //     }, false);
+            context.canvas.addEventListener('click', function (e) {
+                context.canvas.style.cursor = states.cursors[0];
+                requests.renderScreen("PhaseThree")
 
-        // }
+            }, false);
+
+        }
 
 
 

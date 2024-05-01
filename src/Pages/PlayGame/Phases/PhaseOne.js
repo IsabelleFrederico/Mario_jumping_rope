@@ -8,7 +8,7 @@ import * as S from '../../Style'
 function PhaseOne() {
     let { states, requests } = useContext(GlobalStateContext)
 
-    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, won, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, luigi, princess, yoshi) => {
+    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won) => {
         const height = context.canvas.height;
         const width = context.canvas.width;
         let attemptsTotal = 5
