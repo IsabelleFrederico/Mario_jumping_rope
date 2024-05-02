@@ -77,7 +77,7 @@ function Home() {
                 }
                 if (y > b.x && y < b.x + b.h - 340
                     && x > b.y + 38 && x < b.y + 38 + b.w) {
-                    requests.renderScreen("PhaseFour")
+                    requests.renderScreen("Play")
                 }
 
             });

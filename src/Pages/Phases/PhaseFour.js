@@ -18,7 +18,7 @@ function PhaseFour() {
         // BackGround End
 
         // Jumps
-        let jumps = 5 - loops
+        let jumps = 20 - loops
         context.font = "50px Arial";
         const jump = {
             txt: jumps < 10 ? `0${jumps}` : `${jumps}`,

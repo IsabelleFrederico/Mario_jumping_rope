@@ -148,7 +148,7 @@ const useCanvas = draw => {
                         return <></>
                     }
                 case 'PhaseFour':
-                    if (loops < 5) {
+                    if (loops < 20) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
