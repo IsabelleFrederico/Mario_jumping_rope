@@ -1,6 +1,8 @@
 <p align='center'><img src='https://github.com/IsabelleFrederico/Mario_jamping_rope/assets/77753437/33e1fccd-d5dc-4f20-aa9c-c0f1cc7a0b9a' width="50" /><img src='https://github.com/IsabelleFrederico/Mario_jamping_rope/assets/77753437/3a8dcc81-fb83-43a6-a012-a78fdfc53525' width="50" /><img src='https://github.com/IsabelleFrederico/Mario_jamping_rope/assets/77753437/75517a8e-6e19-495f-bdeb-e29f89855ac8' width="70" height="70"/><img src='https://github.com/IsabelleFrederico/Mario_jamping_rope/assets/77753437/be799f59-87ef-47d5-a427-0d78754f7e82' width="50" /></p>
 <h1 align='center'>Mario Jumping Rope</h1>
 
+<div align='center'> Play here: https://mariojumpingrope.netlify.app/ </div>
+
 ### Frames
 <div align='center'>
 <video src='https://github.com/IsabelleFrederico/Mario_jamping_rope/assets/77753437/583d8df1-c155-4299-9e68-daa6db293abf' />
