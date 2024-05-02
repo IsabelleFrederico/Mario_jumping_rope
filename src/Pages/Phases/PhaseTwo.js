@@ -1,23 +1,23 @@
-import React, { useRef, useEffect, useContext } from 'react'
-import Canvas from '../../../Components/Canvas';
-import * as U from '../../../Utils/ImagesSrc';
-import * as M from '../../../Utils/Rope';
-import GlobalStateContext from '../../../Global/GlobalStateContext';
-import * as S from '../../Style'
+import React, { useContext } from 'react'
+import Canvas from '../../Components/Canvas';
+import * as U from '../../Utils/ImagesSrc';
+import * as M from '../../Utils/RopePhaseTwo';
+import * as S from '../Style'
+import GlobalStateContext from '../../Global/GlobalStateContext';
 
-function PhaseOne() {
+function PhaseTwo() {
     let { states, requests } = useContext(GlobalStateContext)
 
-    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won) => {
-        const height = context.canvas.height;
-        const width = context.canvas.width;
+    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won, luigi, wonLuigi) => {
+        const height = context.canvas.height; // 400
+        const width = context.canvas.width; // 600
         let attemptsTotal = 5
 
         // BackGround
         context.drawImage(U.backgroundRef, 0, 0, context.canvas.width, context.canvas.height)
         // BackGround End
 
-        //Jumps
+        // Jumps
         let jumps = 16 - loops
         context.font = "50px Arial";
         const jump = {
@@ -33,12 +33,12 @@ function PhaseOne() {
         context.font = "30px Arial";
         context.fillText(jump.txt2, jump.x2, jump.y2)
 
-        //Jumps End
+        // Jumps End
 
-        // Mario
+        // Mario 
         const marioPlay = {
             image: won ? (mario ? U.marioJumpsRef : U.marioFrontRef) : U.marioFallsRef,
-            x: won ? (mario ? width - 385 : width - 400) : width - 380,
+            x: won ? (mario ? width - 435 : width - 450) : width - 430,
             y: won ? (mario ? height - 350 : height - 295) : height - 275,
             w: won ? (mario ? width - 410 : width - 420) : width - 489,
             h: won ? (mario ? height - 190 : height - 220) : height - 280
@@ -47,8 +47,19 @@ function PhaseOne() {
         context.drawImage(marioPlay.image, marioPlay.x, marioPlay.y, marioPlay.w, marioPlay.h)
         // Mario End
 
-        // Rope
+        // Luigi
+        const luigiPlay = {
+            image: wonLuigi ? (luigi ? U.luigiJumpsRef : U.luigiFrontRef) : U.luigiFallsRef,
+            x: wonLuigi ? (luigi ? width - 370 : width - 300) : width - 320,
+            y: wonLuigi ? (luigi ? height - 330 : height - 295) : height - 300,
+            w: wonLuigi ? (luigi ? width - 390 : width - 490) : width - 460,
+            h: wonLuigi ? (luigi ? height - 200 : height - 235) : height - 220
+        }
 
+        context.drawImage(luigiPlay.image, luigiPlay.x, luigiPlay.y, luigiPlay.w, luigiPlay.h)
+        // Luigi End
+
+        // Rope
         const rope = {
             x: 0,
             y: 0,
@@ -82,7 +93,6 @@ function PhaseOne() {
         }
 
         context.drawImage(rope.movements[currentFrame], rope.x, rope.y, rope.w, rope.h);
-
         // Rope End
 
         // Coins 
@@ -97,10 +107,12 @@ function PhaseOne() {
 
         // Coins End
 
-        // Try Again
-        if (!won && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
+        // Alerts
+        if ((!won || !wonLuigi) && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
+            // Try Again
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Failure text
+
+            // Failure title
             const failure = {
                 image: U.failureRef,
                 x: width - 430,
@@ -110,8 +122,9 @@ function PhaseOne() {
             }
 
             context.drawImage(failure.image, failure.x, failure.y, failure.w, failure.h)
+            // Failure title End
 
-            //Try again Style
+            // Try again Style
             const tryAgain = {
                 x: width - 200,
                 y: height - 200,
@@ -134,7 +147,7 @@ function PhaseOne() {
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
-
+            // Try again Style End
 
             // Try again action
             let newCursor
@@ -155,11 +168,14 @@ function PhaseOne() {
                 tryAgainButton()
 
             }, false);
+            // Try again action End
+
             // Try Again End
-        } else if (!won && (attemptsTotal - attempts) <= 0) {
+        } else if ((!won || !wonLuigi) && (attemptsTotal - attempts) <= 0) {
             // Game Over
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Game Over text
+
+            // Game Over title
             const gameOver = {
                 image: U.gameOverRef,
                 x: width - 530,
@@ -169,8 +185,9 @@ function PhaseOne() {
             }
 
             context.drawImage(gameOver.image, gameOver.x, gameOver.y, gameOver.w, gameOver.h)
+            // Game Over title End
 
-            //Try again Style
+            // Game Over Style
             const again = {
                 x: width - 200,
                 y: height - 200,
@@ -193,9 +210,9 @@ function PhaseOne() {
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
+            // Game Over Style End
 
-
-            // Try again action
+            // Game Over action
             let newCursor
 
             if (context.isPointInPath(mouseX, mouseY)) {
@@ -212,13 +229,17 @@ function PhaseOne() {
             context.canvas.addEventListener('click', function (e) {
                 context.canvas.style.cursor = states.cursors[0];
                 playAgainButton()
+                requests.renderScreen("Play")
 
             }, false);
+            // Game Over action End
 
-        } else if (won && framesControl > framesControlCompar && jumps === 0) {
+            // Game Over End
+        } else if ((won || wonLuigi) && framesControl > framesControlCompar && jumps === 0) {
             //Next Phase
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Failure text
+
+            // Next Phase title
             const levelClear = {
                 image: U.levelClearRef,
                 x: width - 510,
@@ -228,8 +249,9 @@ function PhaseOne() {
             }
 
             context.drawImage(levelClear.image, levelClear.x, levelClear.y, levelClear.w, levelClear.h)
+            // Next Phase title End
 
-            //Try again Style
+            // Next Phase Style
             const again = {
                 x: width - 200,
                 y: height - 200,
@@ -252,9 +274,9 @@ function PhaseOne() {
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
+            // Next Phase Style End
 
-
-            // Try again action
+            // Next Phase action
             let newCursor
 
             if (context.isPointInPath(mouseX, mouseY)) {
@@ -270,13 +292,14 @@ function PhaseOne() {
 
             context.canvas.addEventListener('click', function (e) {
                 context.canvas.style.cursor = states.cursors[0];
-                requests.renderScreen("PhaseTwo")
+                requests.renderScreen("PhaseThree")
 
             }, false);
+            // Next Phase action End
 
+            // Next Phase End
         }
-
-
+        // Alerts End
 
     }
 
@@ -286,4 +309,5 @@ function PhaseOne() {
         </S.Container>
     )
 }
-export default PhaseOne;
+
+export default PhaseTwo;

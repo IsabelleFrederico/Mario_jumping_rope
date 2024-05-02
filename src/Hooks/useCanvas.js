@@ -1,6 +1,5 @@
 import { useRef, useEffect, useContext } from 'react'
 import GlobalStateContext from '../Global/GlobalStateContext'
-import { ropeRef } from '../Utils/ImagesSrc'
 
 const useCanvas = draw => {
     let { states, setters } = useContext(GlobalStateContext)
@@ -44,30 +43,33 @@ const useCanvas = draw => {
             clearTimeout(timeOut.current)
             switch (e.key) {
                 case "z": // Mario jumps
-                    return (mario = true, luigi = false, princess = false, yoshi = false,
+                    return (mario = true,
                         console.log(currentFrame, "mario"),
                         timeOut.current = setTimeout(() => {
-                            mario = false;
+                            mario = false; luigi = false; princess = false; yoshi = false;
+
                         }, 300)
                     )
                 case "x": // Luigi jumps
-                    return (luigi = true, mario = false, princess = false, yoshi = false,
+                    return (luigi = true,
                         console.log(currentFrame, "luigi"),
                         timeOut.current = setTimeout(() => {
-                            luigi = false;
+                            luigi = false; mario = false; princess = false; yoshi = false;
+
                         }, 300)
                     )
                 case "c": // Princess jumps
-                    return (princess = true, mario = false, luigi = false, yoshi = false,
-                        console.log(currentFrame),
+                    return (princess = true,
+                        console.log(currentFrame, "princess"),
                         timeOut.current = setTimeout(() => {
-                            princess = false;
+                            princess = false; mario = false; luigi = false; yoshi = false
                         }, 300)
                     )
                 case "v": // Yoshi jumps
-                    return (yoshi = true, mario = false, luigi = false, princess = false,
+                    return (yoshi = true,
+                        console.log(currentFrame, "yoshi"),
                         timeOut.current = setTimeout(() => {
-                            yoshi = false;
+                            yoshi = false; mario = false; luigi = false; princess = false
                         }, 300)
                     )
                 default:
@@ -91,19 +93,19 @@ const useCanvas = draw => {
 
         const updateCurrentFrame = () => {
             let frameInterval = states.currentScreen === 'Play' ? loops === 4 || loops === 7 ? 4 :
-                loops === 11 || loops === 12 ? 2 : loops === 14 || loops === 15 ? 1.5 : 3 :
-                states.currentScreen === 'PhaseTwo' ? loops === 4 || loops === 7 || loops === 17 || loops === 18 ? 4 :
+                loops === 11 || loops === 12 ? 2 : loops === 14 ? 1.5 : 3 :
+                states.currentScreen === 'PhaseTwo' ? loops === 4 || loops === 7 ? 4 :
                     loops === 11 || loops === 12 ? 5 : loops === 14 || loops === 15 ? 1.5 : 3 :
-                    states.currentScreen === 'PhaseThree' ? loops === 4.5 || loops === 7 || loops === 17 || loops === 18 ? 5 :
-                        loops === 11 || loops === 12 ? 5 : loops === 14 || loops === 15 || loops === 23 || loops === 24 ? 6 : 3 :
-                        states.currentScreen === 'PhaseFour' ? loops === 4 || loops === 7 || loops === 17 || loops === 18 ? 4 :
-                            loops === 11 || loops === 12 || loops === 27 || loops === 28 ? 2.8 : loops === 14 || loops === 15 || loops === 23 || loops === 24 ? 6 : 3 : 3
+                    states.currentScreen === 'PhaseThree' ? loops === 4 || loops === 7 || loops === 17 || loops === 18 ? 5 :
+                        loops === 11 || loops === 12 ? 5 : loops === 14 || loops === 15 ? 6 : 3 :
+                        states.currentScreen === 'PhaseFour' ? loops === 4 || loops === 7 || loops === 17 || loops === 18 ? 3 :
+                            loops === 11 || loops === 12 ? 5 : loops === 14 || loops === 15 ? 6 : 3 : 3
 
             const passedInterval = frames % frameInterval === 0
 
             switch (states.currentScreen) {
                 case 'Play':
-                    if (loops < 16) {
+                    if (loops < 14) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
@@ -117,7 +119,7 @@ const useCanvas = draw => {
                     }
 
                 case 'PhaseTwo':
-                    if (loops < 20) {
+                    if (loops < 16) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
@@ -131,7 +133,7 @@ const useCanvas = draw => {
                         return <></>
                     }
                 case 'PhaseThree':
-                    if (loops < 25) {
+                    if (loops < 18) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
@@ -146,11 +148,16 @@ const useCanvas = draw => {
                         return <></>
                     }
                 case 'PhaseFour':
-                    if (loops < 30) {
+                    if (loops < 5) {
                         if (passedInterval) {
                             const movementBase = 1;
                             const movement = movementBase + currentFrame;
                             currentFrame = framesControl = movement % 23;
+                            if (currentFrame === 22) { loops++ }
+                            if (currentFrame === 12) { nextJump++ }
+                            if (currentFrame === 14) { nextJumpLuigi++ }
+                            if (currentFrame === 17) { nextJumpPrincess++ }
+                            if (currentFrame === 20) { nextJumpYoshi++ }
                         }
                         return (currentFrame)
                     } else {
@@ -221,30 +228,82 @@ const useCanvas = draw => {
                     }
 
                 }
-                // if ((currentFrame === 15 || currentFrame === 16 || currentFrame === 17 || currentFrame === 18)) {
-                //     if (luigi) {
-                //         if (loops === checkNextJumpLuigi) {
-                //             return checkNextJumpLuigi++
-                //         }
-                //         return checkNextJumpLuigi
-                //     }
-                //     if (currentFrame !== 15 && currentFrame <= 19 && nextJumpLuigi !== checkNextJumpLuigi) {
-                //         clearTimeout(timeOut.current)
-                //         return wonLuigi = false
-                //     }
-                // }
-                // if ((currentFrame === 17 || currentFrame === 18 || currentFrame === 19 || currentFrame === 20)) {
-                //     if (princess) {
-                //         if (loops === checkNextJumpPrincess) {
-                //             return checkNextJumpPrincess++
-                //         }
-                //         return checkNextJumpPrincess
-                //     }
-                //     if (currentFrame !== 17 && currentFrame <= 21 && nextJumpPrincess !== checkNextJumpPrincess) {
-                //         clearTimeout(timeOut.current)
-                //         return wonPrincess = false
-                //     }
-                // }
+                if ((currentFrame === 13 || currentFrame === 14 || currentFrame === 15 || currentFrame === 16 || currentFrame === 17 || currentFrame === 18)) {
+                    if (luigi) {
+                        if (loops === checkNextJumpLuigi) {
+                            return checkNextJumpLuigi++
+                        }
+                        return checkNextJumpLuigi
+                    }
+                    if (currentFrame !== 13 && currentFrame <= 19 && nextJumpLuigi !== checkNextJumpLuigi) {
+                        clearTimeout(timeOut.current)
+                        return wonLuigi = false
+                    }
+                }
+                if ((currentFrame === 17 || currentFrame === 18 || currentFrame === 19 || currentFrame === 20)) {
+                    if (princess) {
+                        if (loops === checkNextJumpPrincess) {
+                            return checkNextJumpPrincess++
+                        }
+                        return checkNextJumpPrincess
+                    }
+                    if (currentFrame !== 17 && currentFrame <= 21 && nextJumpPrincess !== checkNextJumpPrincess) {
+                        clearTimeout(timeOut.current)
+                        return wonPrincess = false
+                    }
+                }
+            } else if (states.currentScreen === 'PhaseFour') {
+
+                if ((currentFrame === 10 || currentFrame === 11 || currentFrame === 12)) {
+                    if (mario) {
+                        if (loops === checkNextJump) {
+                            return checkNextJump++
+                        }
+                        return checkNextJump
+                    }
+
+                    if (currentFrame >= 10 && currentFrame <= 13 && nextJump !== checkNextJump) {
+                        clearTimeout(timeOut.current)
+                        return won = false
+                    }
+
+                }
+                if ((currentFrame === 12 || currentFrame === 13 || currentFrame === 14)) {
+                    if (luigi) {
+                        if (loops === checkNextJumpLuigi) {
+                            return checkNextJumpLuigi++
+                        }
+                        return checkNextJumpLuigi
+                    }
+                    if (currentFrame >= 12 && currentFrame <= 15 && nextJumpLuigi !== checkNextJumpLuigi) {
+                        clearTimeout(timeOut.current)
+                        return wonLuigi = false
+                    }
+                }
+                if ((currentFrame === 14 || currentFrame === 15 || currentFrame === 16 || currentFrame === 17)) {
+                    if (princess) {
+                        if (loops === checkNextJumpPrincess) {
+                            return checkNextJumpPrincess++
+                        }
+                        return checkNextJumpPrincess
+                    }
+                    if (currentFrame !== 14 && currentFrame <= 18 && nextJumpPrincess !== checkNextJumpPrincess) {
+                        clearTimeout(timeOut.current)
+                        return wonPrincess = false
+                    }
+                }
+                if ((currentFrame === 18 || currentFrame === 19 || currentFrame === 20)) {
+                    if (yoshi) {
+                        if (loops === checkNextJumpYoshi) {
+                            return checkNextJumpYoshi++
+                        }
+                        return checkNextJumpYoshi
+                    }
+                    if (currentFrame !== 18 && currentFrame <= 21 && nextJumpYoshi !== checkNextJumpYoshi) {
+                        clearTimeout(timeOut.current)
+                        return wonYoshi = false
+                    }
+                }
             }
 
         }

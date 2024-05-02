@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import * as S from './Style'
 import Home from "../Pages/Home/Home";
-import Game from "../Pages/PlayGame/Game"
 import HowToPlay from "../Pages/Home/HowToPlay";
-import PhaseOne from "../Pages/PlayGame/Phases/PhaseOne";
-import PhaseTwo from "../Pages/PlayGame/Phases/PhaseTwo";
-import PhaseThree from "../Pages/PlayGame/Phases/PhaseThree";
-import PhaseFour from "../Pages/PlayGame/Phases/PhaseFour"
+import PhaseOne from "../Pages/Phases/PhaseOne";
+import PhaseTwo from "../Pages/Phases/PhaseTwo";
+import PhaseThree from "../Pages/Phases/PhaseThree";
+import PhaseFour from "../Pages/Phases/PhaseFour"
 import GlobalStateContext from '../Global/GlobalStateContext'
 
 function Router() {

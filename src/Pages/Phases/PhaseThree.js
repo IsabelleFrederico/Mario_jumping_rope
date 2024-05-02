@@ -1,23 +1,25 @@
 import React, { useContext } from 'react'
-import Canvas from '../../../Components/Canvas';
-import * as U from '../../../Utils/ImagesSrc';
-import * as M from '../../../Utils/Rope';
-import * as S from '../../Style'
-import GlobalStateContext from '../../../Global/GlobalStateContext';
+import Canvas from '../../Components/Canvas';
+import * as U from '../../Utils/ImagesSrc';
+import * as S from '../Style';
+import * as M from '../../Utils/RopePhaseThree'
+import GlobalStateContext from '../../Global/GlobalStateContext';
 
-function PhaseTwo() {
+function PhaseThree() {
     let { states, requests } = useContext(GlobalStateContext)
 
-    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won, luigi, wonLuigi) => {
+
+    const draw = (context, mouseX, mouseY, offsetX, offsetY, currentFrame, loops, framesControl, framesControlCompar, attempts, tryAgainButton, playAgainButton, mario, won, luigi, wonLuigi, princess, wonPrincess) => {
         const height = context.canvas.height; // 400
         const width = context.canvas.width; // 600
         let attemptsTotal = 5
+
         // BackGround
         context.drawImage(U.backgroundRef, 0, 0, context.canvas.width, context.canvas.height)
         // BackGround End
 
-        //Jumps
-        let jumps = 20 - loops
+        // Jumps
+        let jumps = 18 - loops
         context.font = "50px Arial";
         const jump = {
             txt: jumps < 10 ? `0${jumps}` : `${jumps}`,
@@ -32,12 +34,12 @@ function PhaseTwo() {
         context.font = "30px Arial";
         context.fillText(jump.txt2, jump.x2, jump.y2)
 
-        //Jumps End
+        // Jumps End
 
-        // Mario 600 400
+        // Mario
         const marioPlay = {
             image: won ? (mario ? U.marioJumpsRef : U.marioFrontRef) : U.marioFallsRef,
-            x: won ? (mario ? width - 435 : width - 450) : width - 430,
+            x: won ? (mario ? width - 485 : width - 500) : width - 480,
             y: won ? (mario ? height - 350 : height - 295) : height - 275,
             w: won ? (mario ? width - 410 : width - 420) : width - 489,
             h: won ? (mario ? height - 190 : height - 220) : height - 280
@@ -46,10 +48,22 @@ function PhaseTwo() {
         context.drawImage(marioPlay.image, marioPlay.x, marioPlay.y, marioPlay.w, marioPlay.h)
         // Mario End
 
+        // Princess
+        const princessPlay = {
+            image: wonPrincess ? (princess ? U.princessPeachJumpsRef : U.princessPeachFrontRef) : U.princessPeachFallsRef,
+            x: wonPrincess ? (princess ? width - 220 : width - 220) : width - 310,
+            y: wonPrincess ? (princess ? height - 350 : height - 320) : height - 300,
+            w: wonPrincess ? (princess ? width - 460 : width - 470) : width - 390,
+            h: wonPrincess ? (princess ? height - 200 : height - 200) : height - 170
+        }
+
+        context.drawImage(princessPlay.image, princessPlay.x, princessPlay.y, princessPlay.w, princessPlay.h)
+        // Princess End
+
         // Luigi
         const luigiPlay = {
             image: wonLuigi ? (luigi ? U.luigiJumpsRef : U.luigiFrontRef) : U.luigiFallsRef,
-            x: wonLuigi ? (luigi ? width - 370 : width - 300) : width - 320,
+            x: wonLuigi ? (luigi ? width - 420 : width - 350) : width - 370,
             y: wonLuigi ? (luigi ? height - 330 : height - 295) : height - 300,
             w: wonLuigi ? (luigi ? width - 390 : width - 490) : width - 460,
             h: wonLuigi ? (luigi ? height - 200 : height - 235) : height - 220
@@ -107,11 +121,13 @@ function PhaseTwo() {
 
         // Coins End
 
-        // Try Again
-        if ((!won || !wonLuigi) && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
+        // Alerts
+        if ((!won || !wonLuigi || !wonPrincess) && framesControl > framesControlCompar && (attemptsTotal - attempts) > 0) {
+            // Try Again
 
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Failure text
+
+            // Failure title
             const failure = {
                 image: U.failureRef,
                 x: width - 430,
@@ -121,8 +137,9 @@ function PhaseTwo() {
             }
 
             context.drawImage(failure.image, failure.x, failure.y, failure.w, failure.h)
+            // Failure title End
 
-            //Try again Style
+            // Try again Style
             const tryAgain = {
                 x: width - 200,
                 y: height - 200,
@@ -145,6 +162,7 @@ function PhaseTwo() {
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Try Again', tryAgain.x + (tryAgain.w + 17), tryAgain.y + 40);
+            // Try again Style End
 
 
             // Try again action
@@ -167,10 +185,12 @@ function PhaseTwo() {
 
             }, false);
             // Try Again End
-        } else if ((!won || !wonLuigi) && (attemptsTotal - attempts) <= 0) {
+
+        } else if ((!won || !wonLuigi || !wonPrincess) && (attemptsTotal - attempts) <= 0) {
             // Game Over
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Game Over text
+
+            // Game Over title
             const gameOver = {
                 image: U.gameOverRef,
                 x: width - 530,
@@ -180,8 +200,9 @@ function PhaseTwo() {
             }
 
             context.drawImage(gameOver.image, gameOver.x, gameOver.y, gameOver.w, gameOver.h)
+            // Game Over title End
 
-            //Try again Style
+            // Game Over Style
             const again = {
                 x: width - 200,
                 y: height - 200,
@@ -204,9 +225,9 @@ function PhaseTwo() {
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Play Again', again.x + (again.w + 17), again.y + 40);
+            // Game Over Style End
 
-
-            // Try again action
+            // Game Over action
             let newCursor
 
             if (context.isPointInPath(mouseX, mouseY)) {
@@ -223,13 +244,21 @@ function PhaseTwo() {
             context.canvas.addEventListener('click', function (e) {
                 context.canvas.style.cursor = states.cursors[0];
                 playAgainButton()
+                requests.renderScreen("Play")
 
             }, false);
+            // Game Over action End
 
-        } else if ((won || wonLuigi) && framesControl > framesControlCompar && jumps === 0) {
-            //Next Phase
+            // Game Over End
+
+
+            // Alerts
+        } else if ((won || wonLuigi || wonPrincess) && framesControl > framesControlCompar && jumps === 0) {
+
+            // Next Phase
             context.drawImage(U.backgroundHowToPlayRef, 0, 0, context.canvas.width, context.canvas.height)
-            // Failure text
+
+            // Next Phase title
             const levelClear = {
                 image: U.levelClearRef,
                 x: width - 510,
@@ -239,8 +268,9 @@ function PhaseTwo() {
             }
 
             context.drawImage(levelClear.image, levelClear.x, levelClear.y, levelClear.w, levelClear.h)
+            // Next Phase title End
 
-            //Try again Style
+            // Next Phase Style
             const again = {
                 x: width - 200,
                 y: height - 200,
@@ -259,11 +289,12 @@ function PhaseTwo() {
             context.moveTo(mouseX, mouseY)
             context.closePath();
 
-
             context.font = '27pt Kremlin Pro Web';
             context.fillStyle = '#000000';
             context.fillText('Next Level', again.x + (again.w + 17), again.y + 40);
+            // Next Phase Style End
 
+            // Next Phase Action
             let newCursor
 
             if (context.isPointInPath(mouseX, mouseY)) {
@@ -279,15 +310,17 @@ function PhaseTwo() {
 
             context.canvas.addEventListener('click', function (e) {
                 context.canvas.style.cursor = states.cursors[0];
-                requests.renderScreen("PhaseThree")
+                requests.renderScreen("PhaseFour")
 
             }, false);
+            // Next Phase Action End
 
+            // Next Phase End
         }
-
-
+        // Alerts End
 
     }
+
 
     return (
         <S.Container>
@@ -296,4 +329,4 @@ function PhaseTwo() {
     )
 }
 
-export default PhaseTwo;
+export default PhaseThree;
