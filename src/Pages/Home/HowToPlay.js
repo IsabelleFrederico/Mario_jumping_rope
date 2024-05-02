@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import GlobalStateContext from '../../Global/GlobalStateContext'
 import Canvas from '../../Components/Canvas'
 import * as U from '../../Utils/ImagesSrc'

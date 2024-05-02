@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
 import GlobalStateContext from "../Global/GlobalStateContext";
 import * as U from "../Utils/ImagesSrc"
 
 const GlobalStateProvider = (props) => {
-    const history = useHistory()
     const [currentScreen, setCurrentScreen] = useState("Home")
     const [phase, setPhase] = useState(1)
     const [failure, setFailure] = useState(false)
